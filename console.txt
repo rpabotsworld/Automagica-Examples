@@ -1,0 +1,90 @@
+>>> # Start Outlook Application (RgH2)
+>>> from automagica.activities import Outlook
+>>> outlook = Outlook(account_name=None)
+>>> # Retrieve e-mails (c6LA)
+>>> from automagica.activities import Outlook
+>>> emails = Outlook.get_mails(outlook, folder_name="Inbox", fields=None)
+>>> # Save attachments (5U7N)
+>>> from automagica.activities import Outlook
+>>> Files = Outlook.save_attachments(outlook, folder_name="Inbox", output_path="C:/Users/Satish/Desktop/MailAttachment")
+>>> # Start Excel Application (pkPX)
+>>> from automagica.activities import Excel
+>>> excel = Excel(file_path="C:/Users/Satish/Desktop/MailAttachment/Input.xlsx", visible=True)
+>>> # Read worksheet (pbuW)
+>>> from automagica.activities import Excel
+>>> CompanyNames = Excel.read_worksheet(excel, name=None, headers=True)
+>>> # Open Chrome Browser (DcY4)
+>>> from automagica.activities import Chrome
+>>> chrome = Chrome(load_images=True, headless=False, incognito=False, disable_extension=False, maximize_window=True, focus_window=True)
+>>> # Browse to URL (93g1)
+>>> from automagica.activities import Chrome
+>>> Chrome.browse_to(chrome, url="https://www.wikipedia.org/")
+>>> # Log Message (VFF2)
+>>> from automagica.activities import print_console
+>>> print_console(data="Search Started for :- "+ row['TEXT'] )
+Search Started for :- UiPath
+>>> # Type text (E1JR)
+>>> from automagica.activities import typing
+>>> typing(text=row['TEXT'], automagica_id='a_gZ', clear=False, interval_seconds=0.01, delay=1)
+>>> # Press key (cCV8)
+>>> from automagica.activities import press_key
+>>> press_key(key='enter', delay=1, perform_n_times=1, delay_between=0.5)
+>>> # Find XPath in browser (JEmc)
+>>> from automagica.activities import Chrome
+>>> CompanyInfo = Chrome.by_xpath(chrome, element='//*[@id="mw-content-text"]')
+>>> # Send e-mail (w3iK)
+>>> from automagica.activities import Outlook
+>>> Outlook.send_mail(outlook, to_address="nitkkrsatish@gmail.com", subject="Result from WikiPedia", body="Here is Your Result" + CompanyInfo.text
+>>> , html_body=None
+>>> , attachment_paths=None)
+>>> # Open Chrome Browser (DcY4)
+>>> from automagica.activities import Chrome
+>>> chrome = Chrome(load_images=True, headless=False, incognito=False, disable_extension=False, maximize_window=True, focus_window=True)
+>>> # Browse to URL (93g1)
+>>> from automagica.activities import Chrome
+>>> Chrome.browse_to(chrome, url="https://www.wikipedia.org/")
+>>> # Log Message (VFF2)
+>>> from automagica.activities import print_console
+>>> print_console(data="Search Started for :- "+ row['TEXT'] )
+Search Started for :- BluePrism
+>>> # Type text (E1JR)
+>>> from automagica.activities import typing
+>>> typing(text=row['TEXT'], automagica_id='a_gZ', clear=False, interval_seconds=0.01, delay=1)
+>>> # Press key (cCV8)
+>>> from automagica.activities import press_key
+>>> press_key(key='enter', delay=1, perform_n_times=1, delay_between=0.5)
+>>> # Find XPath in browser (JEmc)
+>>> from automagica.activities import Chrome
+>>> CompanyInfo = Chrome.by_xpath(chrome, element='//*[@id="mw-content-text"]')
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\automagica\utilities.py", line 27, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\automagica\activities.py", line 1450, in by_xpath
+    return self.find_element_by_xpath(element)
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\selenium\webdriver\remote\webdriver.py", line 394, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\selenium\webdriver\remote\webdriver.py", line 978, in find_element
+    'value': value})['value']
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\selenium\webdriver\remote\webdriver.py", line 321, in execute
+    self.error_handler.check_response(response)
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\selenium\webdriver\remote\errorhandler.py", line 242, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id="mw-content-text"]"}
+  (Session info: chrome=85.0.4183.102)
+
+
+>>> # Quit Excel (KAvc)
+>>> from automagica.activities import Excel
+>>> Excel.quit(excel, )
+>>> # Empty folder (tD0h)
+>>> from automagica.activities import empty_folder
+>>> empty_folder(input_path="C:/Users/Satish/Desktop/MailAttachment", allow_root=False)
+Traceback (most recent call last):
+  File "<string>", line 3, in <module>
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\automagica\utilities.py", line 27, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\Satish\AppData\Local\Automagica\pkgs\automagica\activities.py", line 3140, in empty_folder
+    os.remove(os.path.join(root, name))
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'C:\\Users\\Satish\\Desktop\\MailAttachment\\Input.xlsx'
+

@@ -1,0 +1,295 @@
+{
+    "nodes": [
+        {
+            "uid": "ZL2b",
+            "x": 25,
+            "y": 50,
+            "type": "StartNode",
+            "next_node": "RgH2",
+            "label": null
+        },
+        {
+            "uid": "RgH2",
+            "x": 25,
+            "y": 150,
+            "type": "ActivityNode",
+            "next_node": "c6LA",
+            "label": "",
+            "activity": "automagica.activities.Outlook.__init__",
+            "args": {
+                "self": "outlook",
+                "account_name": "None"
+            },
+            "class": "outlook",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "c6LA",
+            "x": 175,
+            "y": 150,
+            "type": "ActivityNode",
+            "next_node": "5U7N",
+            "label": "",
+            "activity": "automagica.activities.Outlook.get_mails",
+            "args": {
+                "self": "outlook",
+                "folder_name": "\"Inbox\"",
+                "fields": "None"
+            },
+            "class": "outlook",
+            "return_": "emails",
+            "on_exception_node": null
+        },
+        {
+            "uid": "5U7N",
+            "x": 325,
+            "y": 150,
+            "type": "ActivityNode",
+            "next_node": "pkPX",
+            "label": "",
+            "activity": "automagica.activities.Outlook.save_attachments",
+            "args": {
+                "self": "outlook",
+                "folder_name": "\"Inbox\"",
+                "output_path": "\"C:/Users/Satish/Desktop/MailAttachment\""
+            },
+            "class": "outlook",
+            "return_": "Files",
+            "on_exception_node": null
+        },
+        {
+            "uid": "DcY4",
+            "x": 850,
+            "y": 300,
+            "type": "ActivityNode",
+            "next_node": "93g1",
+            "label": "",
+            "activity": "automagica.activities.Chrome.__init__",
+            "args": {
+                "self": "chrome",
+                "load_images": true,
+                "headless": false,
+                "incognito": false,
+                "disable_extension": false,
+                "maximize_window": "True",
+                "focus_window": "True"
+            },
+            "class": "chrome",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "93g1",
+            "x": 1000,
+            "y": 300,
+            "type": "ActivityNode",
+            "next_node": "VFF2",
+            "label": "",
+            "activity": "automagica.activities.Chrome.browse_to",
+            "args": {
+                "self": "chrome",
+                "url": "\"https://www.wikipedia.org/\""
+            },
+            "class": "chrome",
+            "return_": "",
+            "on_exception_node": null
+        },
+        {
+            "uid": "JEmc",
+            "x": 1075,
+            "y": 150,
+            "type": "ActivityNode",
+            "next_node": "w3iK",
+            "label": "",
+            "activity": "automagica.activities.Chrome.by_xpath",
+            "args": {
+                "self": "chrome",
+                "element": "'//*[@id=\"mw-content-text\"]'"
+            },
+            "class": "chrome",
+            "return_": "CompanyInfo",
+            "on_exception_node": null
+        },
+        {
+            "uid": "w3iK",
+            "x": 875,
+            "y": 150,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": "",
+            "activity": "automagica.activities.Outlook.send_mail",
+            "args": {
+                "self": "outlook",
+                "to_address": "\"nitkkrsatish@gmail.com\"",
+                "subject": "\"Result from WikiPedia\"",
+                "body": "\"Here is Your Result\" + CompanyInfo.text\n\n\n\n\n\n\n",
+                "html_body": "None\n\n\n\n\n\n\n",
+                "attachment_paths": "None"
+            },
+            "class": "outlook",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "ExfV",
+            "x": 650,
+            "y": 300,
+            "type": "LoopNode",
+            "iterable": "CompanyNames",
+            "loop_variable": "row",
+            "repeat_n_times": "10",
+            "next_node": "KAvc",
+            "loop_node": "DcY4",
+            "label": ""
+        },
+        {
+            "uid": "tD0h",
+            "x": 975,
+            "y": 425,
+            "type": "ActivityNode",
+            "next_node": "o1le",
+            "label": "",
+            "activity": "automagica.activities.empty_folder",
+            "args": {
+                "input_path": "\"C:/Users/Satish/Desktop/MailAttachment\"",
+                "allow_root": "False"
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "pkPX",
+            "x": 325,
+            "y": 250,
+            "type": "ActivityNode",
+            "next_node": "pbuW",
+            "label": "",
+            "activity": "automagica.activities.Excel.__init__",
+            "args": {
+                "self": "excel",
+                "file_path": "\"C:/Users/Satish/Desktop/MailAttachment/Input.xlsx\"",
+                "visible": true
+            },
+            "class": "excel",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "pbuW",
+            "x": 475,
+            "y": 250,
+            "type": "ActivityNode",
+            "next_node": "ExfV",
+            "label": "",
+            "activity": "automagica.activities.Excel.read_worksheet",
+            "args": {
+                "self": "excel",
+                "name": "None",
+                "headers": true
+            },
+            "class": "excel",
+            "return_": "CompanyNames",
+            "on_exception_node": null
+        },
+        {
+            "uid": "o1le",
+            "x": 1325,
+            "y": 425,
+            "type": "ActivityNode",
+            "next_node": "dDRL",
+            "label": null,
+            "activity": "automagica.activities.Chrome.exit",
+            "args": {
+                "self": "chrome"
+            },
+            "class": "chrome",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "dDRL",
+            "x": 1325,
+            "y": 550,
+            "type": "ActivityNode",
+            "next_node": null,
+            "label": null,
+            "activity": "automagica.activities.Outlook.quit",
+            "args": {
+                "self": "outlook"
+            },
+            "class": "outlook",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "VFF2",
+            "x": 1150,
+            "y": 300,
+            "type": "ActivityNode",
+            "next_node": "E1JR",
+            "label": "Log Message",
+            "activity": "automagica.activities.print_console",
+            "args": {
+                "data": "\"Search Started for :- \"+ row['TEXT'] "
+            },
+            "class": null,
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "KAvc",
+            "x": 650,
+            "y": 425,
+            "type": "ActivityNode",
+            "next_node": "tD0h",
+            "label": "",
+            "activity": "automagica.activities.Excel.quit",
+            "args": {
+                "self": "excel"
+            },
+            "class": "excel",
+            "return_": null,
+            "on_exception_node": null
+        },
+        {
+            "uid": "E1JR",
+            "x": 1325,
+            "y": 300,
+            "type": "ActivityNode",
+            "next_node": "cCV8",
+            "label": "",
+            "activity": "automagica.activities.typing",
+            "args": {
+                "text": "row['TEXT']",
+                "automagica_id": "'a_gZ'",
+                "clear": false,
+                "interval_seconds": "0.01",
+                "delay": "1"
+            },
+            "class": null,
+            "return_": "",
+            "on_exception_node": "o1le"
+        },
+        {
+            "uid": "cCV8",
+            "x": 1325,
+            "y": 150,
+            "type": "ActivityNode",
+            "next_node": "JEmc",
+            "label": "",
+            "activity": "automagica.activities.press_key",
+            "args": {
+                "key": "'enter'",
+                "delay": "1",
+                "perform_n_times": "1",
+                "delay_between": "0.5"
+            },
+            "class": null,
+            "return_": "",
+            "on_exception_node": null
+        }
+    ],
+    "name": "Unnamed Flow"
+}
