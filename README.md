@@ -1,0 +1,2 @@
+# Automagica-Examples
+Automagica Examples
